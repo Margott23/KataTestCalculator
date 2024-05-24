@@ -35,17 +35,12 @@ public class Main {
             System.out.println(calc(sc.nextLine()));
         }
         sc.close();
-
     }
 
     public static String calc(String input) throws ExceptionCalc {
 
         if (input.isEmpty()) {
             throw new ExceptionCalc("String empty");
-        }
-
-        if (input.equals("exit")) {
-            return "exit";
         }
 
         String regexOperand = "[+\\-*/]";
