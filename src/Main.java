@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    public static void main(String[] args) throws ExceptionCalc {
+    public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         while (!sc.nextLine().equals("exit")) {
             System.out.println("Enter an expression:");
@@ -37,17 +37,17 @@ public class Main {
         sc.close();
     }
 
-    public static String calc(String input) throws ExceptionCalc {
+    public static String calc(String input) throws Exception {
 
         if (input.isEmpty()) {
-            throw new ExceptionCalc("String empty");
+            throw new Exception("String empty");
         }
 
         String regexOperand = "[+\\-*/]";
         String regexArabOperand = "^[0-9 ]+([+\\-*/])([0-9 ]+)$";
         String regexRomeOperand = "^[IVX ]+([+\\-*/])([IVX ]+)$";
 
-//работа с арабскими числами
+        //работа с арабскими числами
         Pattern patternArab = Pattern.compile(regexArabOperand);
         Matcher matcherArab = patternArab.matcher(input);
         input = input.trim();
@@ -66,14 +66,13 @@ public class Main {
                 } else if (input.contains("/") && arabNumberTwo != 0) {
                     result = arabNumberOne / arabNumberTwo;
                 } else {
-                    throw new ExceptionCalc("Incorrect expression");
+                    throw new Exception("Incorrect expression");
                 }
                 return String.valueOf(result);
             }
         }
 
-//работа с римскими числами
-
+        //работа с римскими числами
         String[] unitsRomeForCheck = {"I", "II", "III", "V", "IV", "VI", "VII", "VIII", "X", "IX"}; //порядок цифр изменен для корректной проверки
         int[] unitsArabForCheck = {1, 2, 3, 5, 4, 6, 7, 8, 10, 9}; //порядок цифр изменен для корректной проверки
 
@@ -97,7 +96,7 @@ public class Main {
                 }
             }
             if (romeNumberOne == 0 || romeNumberTwo == 0) {
-                throw new ExceptionCalc("Invalid Roman numerals");   //нуля в римских цифрах нет
+                throw new Exception("Invalid Roman numerals");   //нуля в римских цифрах нет
             }
             int result = 0;
             if (input.contains("+")) {
@@ -119,15 +118,9 @@ public class Main {
                 String numHundredsRome = hundredsRome[numHundreds];
                 return numHundredsRome + numTensRome + numUnitsRome;
             } else {
-                throw new ExceptionCalc("The answer does not exist in the Roman numeral system");
+                throw new Exception("The answer does not exist in the Roman numeral system");
             }
         }
-        throw new ExceptionCalc("Wrong input");
-    }
-}
-
-class ExceptionCalc extends Exception {
-    public ExceptionCalc(String message) {
-        super(message);
+        throw new Exception("Wrong input");
     }
 }
